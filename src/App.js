@@ -95,14 +95,15 @@ function App() {
         <div className="main">
             <div className="card">
             {edit ?  <h1> Editing <CircularProgress style={{'color': 'pink'}} /> </h1> : <h1> ToDoList</h1> }
-               <div className="top-section">
-                   {err && <small> 	😠 Error empty input </small>}
+            {err && <small> 	😠 Error empty input </small>}
+               <div className="top-section">         
                {items.map((each)=> {
 
                       each.isEditing ?
                          selection = {
                             border:'1px solid red',
-                            backgroundImage: "url(http://matthewjamestaylor.com/blog/selection.gif)",
+                            backgroundColor: "white",
+                            color: "black",
                             animation: "animate 1s linear forwards"
                          } :
                             selection = {
@@ -111,11 +112,14 @@ function App() {
 
                        return  <div className= {each.isCompleted ? "boxCompleted": "box"} style={selection} key={each.id}> <div className="content" ><p> {each.text} </p>   </div> 
                        <div className="action">
-                       <input type="checkbox" checked={each.isCompleted} onChange={()=> handleCheckBox(each.id)} />
+                           {
+                               !each.isEditing && <input type="checkbox" checked={each.isCompleted} onChange={()=> handleCheckBox(each.id)} />
+                           }
+                      
                        {
                            !each.isCompleted && <button onClick={()=> handleEdit(each.id)} className="btn3"><EditIcon />  </button>
                        }
-                       
+                                            
                              <button onClick={()=> deleteItem(each.id)} className="btn2"><DeleteIcon />  </button>
                        </div>
 
