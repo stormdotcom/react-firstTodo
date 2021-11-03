@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import "./app.css"
 import DeleteIcon from '@material-ui/icons/DeleteForeverOutlined';
 import EditIcon from '@material-ui/icons/EditOutlined';
+import {CircularProgress} from '@material-ui/core';
+
 import Add from '@material-ui/icons/Add';
 function App() {
     const [list, setList] = useState("");
@@ -67,25 +69,32 @@ function App() {
             editing(id, list)
     }
     const editing= (id, text)=>{
-        setEdit(false)
-        items.map((each)=>{
-        if(each.id===id) {
-            each.text= text;
-            each.isEditing=false;
-            setList("")
-            return each
-            
+        if(text==="") {
+            setErr(true)
         }
         else {
-            return each
-        } 
-    })
+            setErr(false)
+            setEdit(false)
+            items.map((each)=>{
+            if(each.id===id) {
+                each.text= text;
+                each.isEditing=false;
+                setList("")
+                return each
+                
+            }
+            else {
+                return each
+            } 
+        })
+        }
+
     }
 
     return (
         <div className="main">
             <div className="card">
-               <h1> {edit ?  "Editing"  : "ToDoList" }</h1>
+            {edit ?  <h1> Editing <CircularProgress style={{'color': 'pink'}} /> </h1> : <h1> ToDoList</h1> }
                <div className="top-section">
                    {err && <small> 	😠 Error empty input </small>}
                {items.map((each)=> {
@@ -93,6 +102,7 @@ function App() {
                       each.isEditing ?
                          selection = {
                             border:'1px solid red',
+                            backgroundImage: "url(http://matthewjamestaylor.com/blog/selection.gif)",
                             animation: "animate 1s linear forwards"
                          } :
                             selection = {
