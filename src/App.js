@@ -33,11 +33,11 @@ function App() {
             });
  
     }
-    const handleCheckBox= (id)=>{
+    const handleCheckBox= (id, isCheck)=>{
         setItems((prevValue)=> {
             return prevValue.map((each)=> {
                 if( each.id===id) {
-                    each.isCompleted=true;
+                    !isCheck ? each.isCompleted=false : each.isCompleted=true;
                     return each;
                 }
                 else {
@@ -64,7 +64,6 @@ function App() {
     }
     const editSubmit=(event)=>{
         event.preventDefault()
-        console.log(event.target)
             setErr(false)
             editing(id, list)
     }
@@ -95,11 +94,9 @@ function App() {
         <div className="main">
             <div className="card">
                 <div className="cardTitle">  {edit ?  <h1> Editing <LinearProgress /> </h1> : <h1> ToDoList</h1> } </div>
-           
             {err && <small> 	😠 Error empty input </small>}
                <div className="top-section">         
                {items.map((each)=> {
-
                       each.isEditing ?
                          selection = {
                             border:'1px solid red',
@@ -114,7 +111,7 @@ function App() {
                        return  <div className= {each.isCompleted ? "boxCompleted": "box"} style={selection} key={each.id}> <div className="content" ><p> {each.text} </p>   </div> 
                        <div className="action">
                            {
-                               !each.isEditing && <input type="checkbox" checked={each.isCompleted} onChange={()=> handleCheckBox(each.id)} />
+                               !each.isEditing && <input type="checkbox"  onClick={(e)=> handleCheckBox(each.id, e.target.checked)} />
                            }
                       
                        {
@@ -123,21 +120,18 @@ function App() {
                                             
                              <button onClick={()=> deleteItem(each.id)} className="btn2"><DeleteIcon />  </button>
                        </div>
-
                        
-                        </div>
+                    </div>
                     })}
                </div>
                 <form className="form">
-                <input type="text" name="listItem" autoComplete="off" value={list} onChange={itemHandle} placeholder={edit ? "Editing items" :"Add Items"} />
+                <input type="text" name="listItem" autoComplete="off" value={list} onChange={itemHandle} placeholder={edit ? "Editing selected item" :"Add Items"} />
                 {edit ? <button  type="submit" className="button-1" onClick={(e)=>editSubmit(e)} ><EditIcon /></button>
                     :
                 <button  type="submit" className="button-1" onClick={handleSubmit} ><Add /></button>
                     }
-                </form>
-               
+                </form>              
             </div>
-
 
         </div>
     )
