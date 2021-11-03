@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import "./app.css"
 import DeleteIcon from '@material-ui/icons/DeleteForeverOutlined';
 import EditIcon from '@material-ui/icons/EditOutlined';
-import {CircularProgress} from '@material-ui/core';
+import {LinearProgress} from '@material-ui/core';
 
 import Add from '@material-ui/icons/Add';
 function App() {
@@ -94,7 +94,8 @@ function App() {
     return (
         <div className="main">
             <div className="card">
-            {edit ?  <h1> Editing <CircularProgress style={{'color': 'pink'}} /> </h1> : <h1> ToDoList</h1> }
+                <div className="cardTitle">  {edit ?  <h1> Editing <LinearProgress /> </h1> : <h1> ToDoList</h1> } </div>
+           
             {err && <small> 	😠 Error empty input </small>}
                <div className="top-section">         
                {items.map((each)=> {
@@ -102,7 +103,7 @@ function App() {
                       each.isEditing ?
                          selection = {
                             border:'1px solid red',
-                            backgroundColor: "white",
+                            backgroundColor: "#FBA1C4",
                             color: "black",
                             animation: "animate 1s linear forwards"
                          } :
@@ -128,7 +129,7 @@ function App() {
                     })}
                </div>
                 <form className="form">
-                <input type="text" name="listItem" autoComplete="off" value={list} onChange={itemHandle} placeholder="add items" />
+                <input type="text" name="listItem" autoComplete="off" value={list} onChange={itemHandle} placeholder={edit ? "Editing items" :"Add Items"} />
                 {edit ? <button  type="submit" className="button-1" onClick={(e)=>editSubmit(e)} ><EditIcon /></button>
                     :
                 <button  type="submit" className="button-1" onClick={handleSubmit} ><Add /></button>
