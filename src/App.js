@@ -100,7 +100,7 @@ function App() {
                       each.isEditing ?
                          selection = {
                             border:'1px solid red',
-                            backgroundColor: "#FBA1C4",
+                            backgroundColor: "#fff",
                             color: "black",
                             animation: "animate 1s linear forwards"
                          } :
