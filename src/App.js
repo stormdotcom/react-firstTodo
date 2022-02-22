@@ -18,7 +18,7 @@ function App() {
     }
     const handleSubmit= (event) =>{
         event.preventDefault()
-        if(list!=="") {
+        if(list!=="" && !text) {
             setItems((prevValue)=> [...prevValue, {text:list, isCompleted: false, id: new Date().valueOf(), isEditing:false}])
             setErr(false)
             setList("")
@@ -68,7 +68,7 @@ function App() {
             editing(id, list)
     }
     const editing= (id, text)=>{
-        if(text==="") {
+        if(text==="" || !text) {
             setErr(true)
         }
         else {
