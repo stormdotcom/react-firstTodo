@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import "./app.css"
+import "./App.css"
 import DeleteIcon from '@material-ui/icons/DeleteForeverOutlined';
 import EditIcon from '@material-ui/icons/EditOutlined';
 import {LinearProgress} from '@material-ui/core';
@@ -18,7 +18,8 @@ function App() {
     }
     const handleSubmit= (event) =>{
         event.preventDefault()
-        if(list!=="" && !text) {
+        const listEmptyString = list.trim()
+        if(list!=="" && listEmptyString) {
             setItems((prevValue)=> [...prevValue, {text:list, isCompleted: false, id: new Date().valueOf(), isEditing:false}])
             setErr(false)
             setList("")
